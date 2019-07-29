@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 const app = require('./app.js');
 const path = require('path')
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8001;
 require('dotenv').config();
 
 //Conexion Base de datos y lanzamiento del servidor
@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGOURL, {
         console.log('Connection to MongoDB successful OK')
         //Ejecución del servidor
         app.listen(port,()=>{
-        console.log(`LOGIN SERVER REST EJECUTANDOSE EN http://localhost:${port}`);
+        console.log(`DATASERVER REST EJECUTANDOSE EN http://localhost:${port}`);
 });
     })
   .catch((err) => console.error(err));

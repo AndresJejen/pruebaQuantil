@@ -15,7 +15,7 @@ RUN npm audit fix
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8001
 
 # run the command to start nodejs
 CMD ["node","server.js"]

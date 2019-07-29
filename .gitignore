@@ -4,3 +4,6 @@ analitica/modeloFLask/__pycache__
 # Login
 Login/login/node_modules
 
+# Data
+data/node_modules
+

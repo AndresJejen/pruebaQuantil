@@ -30,7 +30,7 @@ print('JSON para enviar en POST', data)
 
 """POST <url>/predict
 """
-resp = requests.post("http://localhost:5000/predict", \
+resp = requests.post("http://23.239.2.183:5000/predict", \
                     data = json.dumps(data),\
                     headers= header)
                     
