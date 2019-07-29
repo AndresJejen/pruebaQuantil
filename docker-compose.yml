@@ -1,0 +1,28 @@
+version: "3.7"
+
+services: 
+
+  flask:
+    build: ./analitica/modeloFLask
+    container_name: Tensorflow
+    restart: always
+    environment: 
+      - APP_NAME=Prediccion
+    expose: 
+      - 8080
+
+  nginx:
+    build: ./analitica/nginx
+    container_name: serveranalitica
+    restart: always
+    ports: 
+      - "5000:80"
+
+  login:
+    bulid: ./Login/login
+    container_name: loginservice
+    restart: always
+    image: nodejs
+    ports:
+      - "6000:3000"
+      
