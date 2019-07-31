@@ -1,15 +1,13 @@
-FROM node:10
+FROM mhart/alpine-node:11 AS builder
 
-WORKDIR /usr/src/docker-react-view
-
-COPY package*.json ./
-
-RUN npm install
-
-RUN npm audit fix
+WORKDIR /app
 
 COPY . .
 
-EXPOSE 3000
+RUN yarn run build
 
-CMD ["npm","start"]
+FROM mhart/alpine-node
+RUN yarn global add serve
+WORKDIR /app
+COPY --from=builder /app/build .
+CMD ["serve","-p","80","-s","."]
