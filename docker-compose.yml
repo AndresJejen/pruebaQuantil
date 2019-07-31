@@ -37,3 +37,12 @@ services:
       - 8000
     ports: 
       - 8000:8000    
+
+  vista:
+    build: ./vista-p1
+    container_name: Vista
+    restart: always
+    expose: 
+      - 3000
+    ports: 
+      - 8081:3000    
