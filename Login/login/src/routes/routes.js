@@ -10,6 +10,13 @@ router.get('/',(req,res)=>{
     })
 })
 
+// Ingreso
 router.post('/api/signin',UserControllers.signIn)
+
+//registrar
+router.post('/api/signup',UserControllers.signUp) 
+
+router.post('/api/search',UserControllers.searchuser) 
+/////////////
 
 module.exports =  router;

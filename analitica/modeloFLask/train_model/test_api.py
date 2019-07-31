@@ -18,6 +18,8 @@ loaded_scaler = load_object('scaler_time_series.pkl')
 
 reframed = transformar(df, loaded_scaler)
 
+print(reframed);
+
 reordenado=reframed[ ['weekday','month','var1(t-7)','var1(t-6)','var1(t-5)','var1(t-4)','var1(t-3)','var1(t-2)','var1(t-1)'] ]
 reordenado.dropna(inplace=True)
 #print(reordenado)
@@ -30,7 +32,7 @@ print('JSON para enviar en POST', data)
 
 """POST <url>/predict
 """
-resp = requests.post("http://23.239.2.183:5000/predict", \
+resp = requests.post("http://localhost:5000/predict", \
                     data = json.dumps(data),\
                     headers= header)
                     

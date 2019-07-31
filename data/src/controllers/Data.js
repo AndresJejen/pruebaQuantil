@@ -14,26 +14,44 @@ function getday(req,res){
         });
 }
 
-function getlastday(req,res){
-    Data.find({}).sort({$natural:-1}).limit(1)
-    .then((day)=>{
-        if (!day) return releaseEvents.status(404).send({mensaje:"NO existen datos"});
-        res.status(200).send({day})
-    })
-    .catch(err => {
+async function getlastday(req,res){
+    try{
+        const week = await Data.find({}).sort({$natural:-1}).limit(1)
+        console.log(week);
+        
+        if (!week) return res.status(404).send({mensaje:"NO existen datos"});
+        return res.status(200).send({week});
+    }
+    catch(err){
         if (err) return res.status(500).send({mensaje:`Error al realizar la petición: ${err}`})
-    });
+    }
 }
 
-function getweek(req,res){
-    Data.find({}).sort({$natural:-1}).limit(7)
-    .then((week)=>{
-        if (!week) return releaseEvents.status(404).send({mensaje:"NO existen datos"});
-        res.status(200).send({week});
-    })
-    .catch(err => {
+async function getweek(req,res){
+
+    try{
+        const week = await Data.find({}).sort({$natural:-1}).limit(8)
+        console.log(week);
+        
+        if (!week) return res.status(404).send({mensaje:"NO existen datos"});
+        return res.status(200).send({week});
+    }
+    catch(err){
         if (err) return res.status(500).send({mensaje:`Error al realizar la petición: ${err}`})
-    });
+    }
+}
+
+async function getdata4nextweek(req,res){
+    try{
+        const week = await Data.find({}).sort({$natural:-1}).limit(16)
+        console.log(week);
+        
+        if (!week) return res.status(404).send({mensaje:"NO existen datos"});
+        return res.status(200).send({week});
+    }
+    catch(err){
+        if (err) return res.status(500).send({mensaje:`Error al realizar la petición: ${err}`})
+    }
 }
 
 function savenewday(req,res){
@@ -57,5 +75,6 @@ module.exports = {
     getday,
     getlastday,
     getweek,
-    savenewday
+    savenewday,
+    getdata4nextweek
 }
