@@ -12,7 +12,7 @@ module.exports = {
         try{
 
             // console.log(args)
-            const Existinguser = await fetch('http://localhost:3000/api/search',
+            const Existinguser = await fetch('http://23.239.2.183:3000/api/search',
                 {
                     method:'post',
                     body:JSON.stringify({email:args.userInput.email}),
@@ -36,7 +36,7 @@ module.exports = {
             }
 
             // Enviar a Auth Server Sign Up
-            const response = await fetch('http://localhost:3000/api/signup',
+            const response = await fetch('http://23.239.2.183:3000/api/signup',
                 {
                     method:'post',
                     body:JSON.stringify(newuser),
@@ -60,7 +60,7 @@ module.exports = {
    },
    login: async ({email,password})=>{
         
-        const Existinguser = await fetch('http://localhost:3000/api/search',
+        const Existinguser = await fetch('http://23.239.2.183:3000/api/search',
         {
             method:'post',
             body:JSON.stringify({email: email}),

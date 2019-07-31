@@ -62,17 +62,21 @@ def predict():
 		final_predictions.columns = ['demanda']
 		
 		hoy = req_json['fecha'].loc[0]
-		#date_time_obj = datetime.strptime(hoy, '%Y-%m-%d %H:%M:%S.%f')
-
-		print(hoy)
+		print("Dia Hoy",hoy)
 		dias = timedelta(days=1)
 		hoy_mas_1_dias = hoy + dias # sumamos 5 Dias
-		print(hoy_mas_1_dias)
-		fechas = pd.date_range(start =str(hoy_mas_1_dias),  periods = 8) 
-		print(fechas)
-		final_predictions['fechas'] = fechas
+		print("dia siguiente",hoy_mas_1_dias)
+		print("Cantidad de datos finales",final_predictions.values.shape)
+		fechas = pd.date_range(start =str(hoy_mas_1_dias),  periods = final_predictions.values.shape[0]) 
+		print("Nuevas fechas",fechas[0])
+		print("Predicciones finales",final_predictions)
+
+		final_predictions['fecha'] = fechas
+		final_predictions['fecha'] = [x.strftime("%Y-%m-%d") for x in final_predictions['fecha']]
+
 		print(final_predictions)
 		print("Enviar respuesta")
+		#responses = jsonify(predictions=final_predictions.to_json(orient="records"))
 		responses = jsonify(predictions=final_predictions.to_json(orient="records"))
 		responses.status_code = 200
 		print("Fin de Peticion")

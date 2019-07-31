@@ -47,12 +47,23 @@ module.exports = {
                     headers: { 'Content-Type': 'application/json' },
                     mode: "cors"
                 }).then((u) => u.json())
-                .then((json) => {
-                    resp = json
-                    return resp
-                });
+                .then((json) => json.predictions)
+                .then((resp => {
+                    const data = JSON.parse(resp)
+                    return data.map(doc => {
+                        return { 
+                            fecha: doc.fecha,
+                            demanda: doc.demanda,
+                            ...doc.doc, 
+                            _id: doc.id, 
+                        }
+                    })
+                }))
 
-            console.log(prediccion)
+            return prediccion
+
+            //console.log(data)
+
 
         }
         catch(err) {
@@ -61,44 +72,60 @@ module.exports = {
         };
     },
     nuevodia: async (args,req) =>{    
-        
-        if(!req.isAuth){
-            throw new Error('User Unauthenticated!');
-        }
-        
-    
-        const doc = new Doc({
-            name: args.docInput.name,
-            titulo: args.docInput.titulo,
-            author: args.docInput.author,
-            mlanguage: args.docInput.mlanguage,
-            typedoc: args.docInput.typedoc,
-            wlanguage: args.docInput.wlanguage,
-            ilevel: args.docInput.ilevel,
-            flevel: args.docInput.flevel,
-            date: new Date(),
-            link: args.docInput.link,
-            helper : req.userId
-        });
         try{
-            const result = await doc.save();
-            const helper = await User.findById(req.userId);
-            if (!helper){
-                throw new Error('Usuario inexistente.');
-            }
-            helper.documentsadded.push(doc);
-            
-            await helper.save();
+            const DataPredict = await fetch('http://localhost:8001/api/week')
+            .then((u) => u.json())
+            .then((json) => {
+                resp = json.week
+                return resp
+            });
 
-            return transformDoc(result);
+            const prediccion = await fetch('http://localhost:5000/predict',
+                {
+                    method:'post',
+                    body:JSON.stringify(DataPredict),
+                    headers: { 'Content-Type': 'application/json' },
+                    mode: "cors"
+                }).then((u) => u.json())
+                .then((json) => json.predictions)
+                .then((resp => {
+                    return JSON.parse(resp)
+                }))
+
+                const nuevo_dato = await fetch('http://localhost:8001/api/newday',
+                {
+                    method:'post',
+                    body:JSON.stringify(prediccion[0]),
+                    headers: { 'Content-Type': 'application/json' },
+                    mode: "cors"
+                })    
+
+                const data = await nuevo_dato.json()
+
+                const respu = [data.dataStored];
+
+                console.log(respu)
+
+                return respu.map(doc => {
+                    return { 
+                        fecha: doc.fecha,
+                        demanda: doc.demanda,
+                        ...doc.doc, 
+                        _id: doc.id, 
+                    }
+                });    
+                
+
+
         }
         catch(err) {
-            console.error(`Error en guarda un nuevo documento ${err}`)
+            console.error(`Error en consultar todos los documentos ${err}`)
             throw err;
         };
     },
     demandahoy: async () =>{    
         try{
+            
             const Lastday = await fetch('http://localhost:8001/api/lastday')
             .then((u) => u.json())
             .then((json) => {

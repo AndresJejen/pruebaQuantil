@@ -54,7 +54,7 @@ async function getdata4nextweek(req,res){
     }
 }
 
-function savenewday(req,res){
+async function savenewday(req,res){
     console.log(req.body)
 
     let datos = new Data();
