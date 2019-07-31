@@ -6,7 +6,7 @@ module.exports = {
     demandassemana: async ()=>{                                                   
         try{
 
-            const Existingweek = await fetch('http://localhost:8001/api/week')
+            const Existingweek = await fetch('http://23.239.2.183:8001/api/week')
             .then((u) => u.json())
             .then((json) => {
                 resp = json.week
@@ -31,7 +31,7 @@ module.exports = {
     // Resolver create a new Doc 
     demandaprediccion: async (args,req) =>{    
         try{
-            const DataPredict = await fetch('http://localhost:8001/api/dataforpweek')
+            const DataPredict = await fetch('http://23.239.2.183:8001/api/dataforpweek')
             .then((u) => u.json())
             .then((json) => {
                 resp = json.week
@@ -40,7 +40,7 @@ module.exports = {
 
             //console.log(DataPredict)
 
-            const prediccion = await fetch('http://localhost:5000/predict',
+            const prediccion = await fetch('http://23.239.2.183:5000/predict',
                 {
                     method:'post',
                     body:JSON.stringify(DataPredict),
@@ -73,14 +73,14 @@ module.exports = {
     },
     nuevodia: async (args,req) =>{    
         try{
-            const DataPredict = await fetch('http://localhost:8001/api/week')
+            const DataPredict = await fetch('http://23.239.2.183:8001/api/week')
             .then((u) => u.json())
             .then((json) => {
                 resp = json.week
                 return resp
             });
 
-            const prediccion = await fetch('http://localhost:5000/predict',
+            const prediccion = await fetch('http://23.239.2.183:5000/predict',
                 {
                     method:'post',
                     body:JSON.stringify(DataPredict),
@@ -92,7 +92,7 @@ module.exports = {
                     return JSON.parse(resp)
                 }))
 
-                const nuevo_dato = await fetch('http://localhost:8001/api/newday',
+                const nuevo_dato = await fetch('http://23.239.2.183:8001/api/newday',
                 {
                     method:'post',
                     body:JSON.stringify(prediccion[0]),
@@ -126,7 +126,7 @@ module.exports = {
     demandahoy: async () =>{    
         try{
             
-            const Lastday = await fetch('http://localhost:8001/api/lastday')
+            const Lastday = await fetch('http://23.239.2.183:8001/api/lastday')
             .then((u) => u.json())
             .then((json) => {
                 resp = json.week
