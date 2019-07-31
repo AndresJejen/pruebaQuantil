@@ -1,10 +1,11 @@
-FROM node:carbon
+FROM node:10
 
 WORKDIR /usr/src/docker-react-view
 
 COPY package*.json ./
 
 RUN npm install
+
 
 COPY . .
 
