@@ -11,8 +11,6 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
-RUN npm audit fix
-
 COPY . .
 
 EXPOSE 3000
