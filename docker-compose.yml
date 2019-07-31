@@ -43,6 +43,6 @@ services:
     container_name: Vista
     restart: always
     expose: 
-      - 3000
+      - 80
     ports: 
-      - 8081:3000    
+      - 8081:80    
