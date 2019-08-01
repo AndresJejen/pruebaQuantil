@@ -38,11 +38,11 @@ services:
     ports: 
       - 8000:8000    
 
-  # vista:
-  #   build: ./vista-p1
-  #   container_name: Vista
-  #   restart: always
-  #   expose: 
-  #     - 80
-  #   ports: 
-  #     - 8081:80    
+  sample-prod:
+    container_name: vista
+    build: ./vista-p1
+    restart: always
+    expose: 
+      - 80
+    ports:
+      - '80:80'
