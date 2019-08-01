@@ -38,13 +38,13 @@ services:
     ports: 
       - 8000:8000    
 
-  sample:
-      container_name: sample
-      build: ./vista-p1
-      volumes:
-        - '.:/app'
-        - '/app/node_modules'
-      ports:
-        - '3001:3000'
-      environment:
-        - NODE_ENV=development
+  # sample:
+  #     container_name: sample
+  #     build: ./vista-p1
+  #     volumes:
+  #       - '.:/app'
+  #       - '/app/node_modules'
+  #     ports:
+  #       - '3001:3000'
+  #     environment:
+  #       - NODE_ENV=development
